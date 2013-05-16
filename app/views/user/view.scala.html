@@ -1,0 +1,12 @@
+@(user: User, message: String)
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>User @user.uuid</h1>
+		<font style="color:red">@message</font>
+		<table border="1">
+           	@views.html.user.item(user)
+		</table>
+	</body>
+</html>

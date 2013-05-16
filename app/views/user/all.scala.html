@@ -1,0 +1,14 @@
+@(users: Seq[User], message: String)
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>List of users</h1>
+		<font style="color:red">@message</font>
+		<table border="1">
+			@users.map { user =>
+            	@views.html.user.item(user)
+        	}
+		</table>
+	</body>
+</html>

@@ -1,6 +1,6 @@
 @(user: User)
 <tr>
-<td><a href="@user.uuid">@user.name</a></td>
+<td><a href="/user/@user.uuid/get">@user.name</a></td>
 <td>@user.surname</td>
 <td>@user.email</td>
 <td>@user.city</td>
@@ -10,5 +10,5 @@
 <td>@user.phone</td>
 <td>@user.gender</td>
 <td>@user.birth_date</td>
-<td><a href="@user.uuid/photo">View photo</a></td>
+<td><a href="/user/@user.uuid/photo">View photo</a></td>
 </tr>

@@ -44,8 +44,6 @@ object Cassandra {
     // TODO: Make the test for creation and drop and improve the rest of functions to deal ok with exceptions
     // (non existing items and so on...)
 
-    // TODO: cluster and keyspace are treated as singletons here?
-
     val cluster: Cluster = {
 		HFactory.getOrCreateCluster(clusterName, host + ":" + port)
     }
@@ -77,7 +75,7 @@ object Cassandra {
     	row.getColumnSlice.getColumnByName(name).getValue
     }
 
-    def addColumnFamily(name: String): Unit = {
+/*    def addColumnFamily(name: String): Unit = {
     	// TODO: Check if exists
 		val cfDef = HFactory.createColumnFamilyDefinition(keyspaceName, name)
     	cluster.addColumnFamily(cfDef, true)
@@ -87,5 +85,15 @@ object Cassandra {
     	val result = cluster.dropColumnFamily(keyspaceName, name, true)
     	result
     }
+*/
 
+    // TODO
+    def insertRow(cf: String, uuid: String): Boolean = {
+        true
+    }
+
+    // TODO
+    def dropRow(cfname: String, uuid: String): Boolean = {
+        true
+    }
 }

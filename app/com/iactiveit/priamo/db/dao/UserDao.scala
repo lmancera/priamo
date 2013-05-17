@@ -32,14 +32,53 @@ object UserDao {
     }
 
     def getUser(uuid: String): User = {
-        def user = User from Cassandra.getRows(cfUsers,uuid,uuid,Map("columns" -> numColumnsUsers))
-        user.last
+        def users = User from Cassandra.getRows(cfUsers,uuid,uuid,Map("columns" -> numColumnsUsers))
+        if (users.size > 0) users.last
+        else User.empty
     }
 
-    def getUserPhoto(uuid: String): String = {
+    def getPhoto(uuid: String): String = {
         def rows = Cassandra.getRows(cfUserPhoto,uuid,uuid,Map("columns" -> numColumnsUserPhoto))
         def photo = Cassandra.getColumnValueByName(rows.last, cnPhoto)
         photo
+    }
+
+    // TODO insertRow
+    def updatePhoto(uuid: String, photo: String): String = {
+        Cassandra.dropRow(cfUserPhoto,uuid)
+        Cassandra.insertRow(cfUserPhoto,uuid)
+        getPhoto(uuid)
+    }
+
+    def upsert(user: User): User = {
+        if (getUser(user.uuid) != User.empty){
+            update(user)
+        } else {
+            create(user)
+        }
+    }
+
+    // TODO insertRow
+    def create(user: User): User = {
+        if (getUser(user.uuid) != User.empty){
+            if (Cassandra.insertRow(cfUsers,user.uuid)) user 
+            else User.empty
+        } else {
+            User.empty
+        }
+        user
+    }
+
+    def update(user: User): User = {
+        delete(user.uuid)
+        create(user)
+        user
+    }
+
+    def delete(uuid: String): User = {
+        def user = getUser(uuid)
+        if (Cassandra.dropRow(cfUsers,user.uuid)) user
+        else User.empty
     }
 
 }

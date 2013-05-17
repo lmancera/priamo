@@ -26,7 +26,7 @@ class UsersSpec extends Specification {
 
     "render user view" in {
       running(FakeApplication()) {
-        val page = route(FakeRequest(GET, "/user/1")).get
+        val page = route(FakeRequest(GET, "/user/1/get")).get
         
         status(page) must equalTo(OK)
         contentType(page) must beSome.which(_ == "text/html")

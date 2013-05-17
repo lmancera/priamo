@@ -10,8 +10,10 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # User
 GET		/user/all					controllers.Users.all
-GET		/user/:uuid					controllers.Users.get(uuid:String)
+GET		/user/:uuid/get				controllers.Users.get(uuid:String)
 GET		/user/:uuid/photo			controllers.Users.photo(uuid:String)
-GET		/user/create				controllers.Users.create
-GET		/user/:uuid/update			controllers.Users.update(uuid:String)
+GET		/user/upsert				controllers.Users.upsert
 GET		/user/:uuid/delete			controllers.Users.delete(uuid:String)
+
+GET     /user/addnew				controllers.Users.addnew
+GET     /user/:uuid/edit			controllers.Users.edit(uuid:String)

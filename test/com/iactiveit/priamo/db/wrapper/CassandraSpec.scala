@@ -15,15 +15,24 @@ class CassandraSpec extends Specification {
     
     "connect a valid keyspace" in {
       val testcf = "testcf"
-      val keyspace = Cassandra.getKeyspace
+      val keyspace = Cassandra.keyspace
       keyspace.getKeyspaceName() must equalTo(Cassandra.keyspaceName)
     }
 
-    "create and drop a column family" in {
+/*    "create and drop a column family" in {
       Cassandra.addColumnFamily("testcf")
-
-      
+      val columnDescription = ColumnDescription("","","","")
+      var rowDescription = RowDescription("","","","")
+      rowDescription.addColumn(columnDescription)
+      Cassandra.addRow("testcolumn", columnDescription)
+      var rows = Cassandra.getRows("testcf","") 
+      rows.length must be (>0)
+      Cassandra.dropColumnFamily("testcf")
+      rows = Cassandra.getRows("testcf","") 
+      rows must be Empty
     }
+*/
+
     
   }
 }
